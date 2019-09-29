@@ -42,7 +42,7 @@ class Vertex:
         self.y = y
         
 class Graph: 
-    """Represent a graph as a dictionary of vertices mapping lables to edges."""
+    """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
     def add_vertex(self, vertex_id):
