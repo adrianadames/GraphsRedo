@@ -87,27 +87,10 @@ class Graph:
                     else:
                         stack.push(vertex)
         return [vertex.id for vertex in visited]
-    
-    #BFT (queue method)
-    def bft(self, starting_vert_id):
-        visited = []
-        queue = Queue()
-        queue.enqueue(self.vertices[starting_vert_id])
-        while queue.size()>0:
-            vertex = queue.dequeue()
-            if vertex in visited:
-                pass
-            else:
-                visited.append(vertex)
-                for vertex in self.vertices[vertex.id].edges:
-                    if vertex in visited:
-                        pass
-                    else:
-                        queue.enqueue(vertex)
-        return [vertex.id for vertex in visited]
-    
+
+    #ATTEMPT1
     #DFS(recursion method) + path   --- NOT WORKING. PRINTS PATH BUT DOESNT RETURN IT.
-    def dfs_recursive(self,start_vert_id, target_vert_id, visited=[]):
+    def dfs_recursive1(self,start_vert_id, target_vert_id, visited=[]):
         visited.append(self.vertices[start_vert_id])
         print("visited: ", visited[len(visited)-1].id)
         if self.vertices[start_vert_id].id == target_vert_id:
@@ -120,6 +103,21 @@ class Graph:
             else:
                 pass
         return [vertex.id for vertex in visited]
+
+    #ATTEMPT 2
+    #DFS(recursion method) + path
+    def dfs_recursive2(self,start_vert_id, target_vert_id, visited=[], path = []):
+        visited.append(self.vertices[start_vert_id])
+        path = path + [self.vertices[start_vert_id].id]
+        if self.vertices[start_vert_id].id == target_vert_id:
+            return path
+        for child_vert in self.vertices[start_vert_id].edges:
+            # print(path)
+            if child_vert not in visited:
+                new_path = self.dfs_recursive2(child_vert.id,  target_vert_id, visited, path) 
+                if new_path:
+                    return new_path
+        return None
 
     #DFS (stack method) + path
     def dfs_stack(self,start_vert_id, target_vert_id, visited=[], path = []):
@@ -139,6 +137,24 @@ class Graph:
                             pass
                         else:
                             stack.push(vertex)
+
+    #BFT (queue method)
+    def bft(self, starting_vert_id):
+        visited = []
+        queue = Queue()
+        queue.enqueue(self.vertices[starting_vert_id])
+        while queue.size()>0:
+            vertex = queue.dequeue()
+            if vertex in visited:
+                pass
+            else:
+                visited.append(vertex)
+                for vertex in self.vertices[vertex.id].edges:
+                    if vertex in visited:
+                        pass
+                    else:
+                        queue.enqueue(vertex)
+        return [vertex.id for vertex in visited]
 
     #BFS1 (queue method) + path  --- NOT WORKING.
     def bfs1(self, start_vert_id, target_vert_id):
@@ -208,11 +224,13 @@ graph.add_edge(3,7)
 graph.add_edge(3,6)
 graph.add_edge(7,9)
 
-# print("bft path: ", graph.bft(0)) #works 
+
 # print("dft_stack path: ", graph.dft_stack(0)) #works
 # print("dft_recursive path: ", graph.dft_recursive(0)) #works
 # print("dfs_stack path: ",graph.dfs_stack(0,7)) #works
-# print("dfs_recursive path: ", graph.dfs_recursive(0,7)) #notWorking
+print("dfs_recursive path1: ", graph.dfs_recursive1(0,7)) #kindOfWorking
+print("dfs_recursive2 path: ", graph.dfs_recursive2(0,7)) #works
 
+# print("bft path: ", graph.bft(0)) #works 
 # print("bfs1 path: ", graph.bfs1(0,7)) #not working like I want (doesn't return shortest path)
-print("bfs2 path2: ", graph.bfs2(0,7))  #working (returns shortest path)
+# print("bfs2 path2: ", graph.bfs2(0,7))  #working (returns shortest path)

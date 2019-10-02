@@ -75,10 +75,10 @@ def main(**kwargs):
         graph = getDefaultGraph()
 
     # graph.dft(0)
-    # graph.bft(0)
+    graph.bft(0)
     # print(graph.dfs(0,4))
     # print(graph.dfs(0,8))
-    print(graph.dfs_path(0,5))
+    # print(graph.dfs_path(0,5))
 
     bokeh_graph = BokehGraph(graph)
 
