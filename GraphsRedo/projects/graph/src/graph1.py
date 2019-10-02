@@ -99,7 +99,7 @@ class Graph:
         for vertex in self.vertices[start_vert_id].edges:
             if vertex is not None:
                 if vertex not in visited:
-                    self.dfs_recursive(self.vertices[vertex.id].id, target_vert_id)
+                    self.dfs_recursive1(self.vertices[vertex.id].id, target_vert_id)
             else:
                 pass
         return [vertex.id for vertex in visited]
@@ -183,21 +183,21 @@ class Graph:
         q.enqueue([self.vertices[start_vert_id]]) #array gets added to queue
         visited = []
         while q.size() > 0:
-            for i in range(0, len(q.queue)):
-                print("paths checked: ",[vertex.id for vertex in q.queue[i]]) # prints every path checked before shortest path is found
+            # for i in range(0, len(q.queue)):
+                # print("paths checked: ",[vertex.id for vertex in q.queue[i]]) # prints every path checked before shortest path is found
             path = q.dequeue()
-            print("path: ",[vertex.id for vertex in path])
+            # print("path: ",[vertex.id for vertex in path])
             dequeuedVert = path[-1] 
-            print("dequeuedVert: ", dequeuedVert.id)
+            # print("dequeuedVert: ", dequeuedVert.id)
             if dequeuedVert not in visited:
                 if dequeuedVert.id == target_vert_id:
                     return [vertex.id for vertex in path]
                 visited.append(dequeuedVert)  # marks vertex as visited
                 for next_vert in dequeuedVert.edges: 
-                    print("nextVert: ", next_vert.id)
+                    # print("nextVert: ", next_vert.id)
                     new_path = list(path) 
                     new_path.append(next_vert) 
-                    print("newPath: ", [vertex.id for vertex in new_path]) 
+                    # print("newPath: ", [vertex.id for vertex in new_path]) 
                     q.enqueue(new_path)
         return None
 
@@ -228,9 +228,10 @@ graph.add_edge(7,9)
 # print("dft_stack path: ", graph.dft_stack(0)) #works
 # print("dft_recursive path: ", graph.dft_recursive(0)) #works
 # print("dfs_stack path: ",graph.dfs_stack(0,7)) #works
-print("dfs_recursive path1: ", graph.dfs_recursive1(0,7)) #kindOfWorking
-print("dfs_recursive2 path: ", graph.dfs_recursive2(0,7)) #works
+# print("dfs_recursive1 path: ", graph.dfs_recursive1(0,7)) #kindOfWorking
+# print("dfs_recursive2 path: ", graph.dfs_recursive2(0,7)) #works
+
 
 # print("bft path: ", graph.bft(0)) #works 
-# print("bfs1 path: ", graph.bfs1(0,7)) #not working like I want (doesn't return shortest path)
-# print("bfs2 path2: ", graph.bfs2(0,7))  #working (returns shortest path)
+print("bfs1 path: ", graph.bfs1(0,7)) #not working like I want (doesn't return shortest path)
+print("bfs2 path2: ", graph.bfs2(0,7))  #working (returns shortest path)
