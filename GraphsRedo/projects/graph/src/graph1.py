@@ -191,7 +191,9 @@ class Graph:
             # print("dequeuedVert: ", dequeuedVert.id)
             if dequeuedVert not in visited:
                 if dequeuedVert.id == target_vert_id:
-                    return [vertex.id for vertex in path]
+                    visitedVertices = visited + [dequeuedVert]
+                    print('visitedVertices: ', [vertex.id for vertex in visitedVertices]) #gives all the nodes that were visited to find the shortest path 
+                    return [vertex.id for vertex in path] #returns the shortest path to destination vertex
                 visited.append(dequeuedVert)  # marks vertex as visited
                 for next_vert in dequeuedVert.edges: 
                     # print("nextVert: ", next_vert.id)
